@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]
+gunicorn
+asyncpg
+psycopg2-binary
+aiomysql
+pymysql
+motor
