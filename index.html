@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>aff</title>
+  <title>pythonecs51</title>
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -20,16 +20,16 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      padding: 2rem;
     }
 
     .container {
-      width: 100%;
-      max-width: 640px;
-      padding: 2rem 1.5rem;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 2rem;
+      justify-content: center;
+      flex: 1;
+      width: 100%;
     }
 
     .badge {
@@ -41,17 +41,21 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       padding: 0.35rem 1rem;
-      border-radius: 999px;
+      border-radius: 2rem;
+      margin-bottom: 1.5rem;
     }
 
     .card {
-      width: 100%;
       background: #161b22;
       border: 1px solid #30363d;
       border-radius: 16px;
-      padding: 3rem 2.5rem;
+      padding: 3rem 3.5rem;
+      max-width: 600px;
+      width: 100%;
       text-align: center;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.03),
+        0 16px 48px rgba(0, 0, 0, 0.6);
       position: relative;
       overflow: hidden;
     }
@@ -63,89 +67,92 @@
       left: 0;
       right: 0;
       height: 3px;
-      background: linear-gradient(90deg, #58a6ff, #bc8cff, #58a6ff);
-      background-size: 200% 100%;
-      animation: shimmer 3s linear infinite;
+      background: linear-gradient(90deg, #58a6ff, #bc8cff, #f78166);
+      border-radius: 16px 16px 0 0;
     }
 
-    @keyframes shimmer {
-      0%   { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
-    }
-
-    .project-label {
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #8b949e;
-      margin-bottom: 0.75rem;
+    .project-icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, #1f6feb, #58a6ff);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.75rem;
+      font-size: 1.75rem;
+      box-shadow: 0 4px 20px rgba(88, 166, 255, 0.3);
     }
 
     .project-name {
-      font-size: 4rem;
-      font-weight: 800;
+      font-size: 2.4rem;
+      font-weight: 700;
       letter-spacing: -0.02em;
-      background: linear-gradient(135deg, #58a6ff 0%, #bc8cff 100%);
+      color: #e6edf3;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+
+    .project-name span {
+      background: linear-gradient(135deg, #58a6ff, #bc8cff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      line-height: 1.1;
-      margin-bottom: 2rem;
     }
 
     .divider {
       width: 48px;
       height: 2px;
-      background: #30363d;
-      margin: 0 auto 2rem;
-      border-radius: 999px;
+      background: linear-gradient(90deg, #58a6ff, #bc8cff);
+      margin: 1.5rem auto;
+      border-radius: 2px;
     }
 
-    .repo-label {
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #8b949e;
-      margin-bottom: 0.6rem;
-    }
-
-    .repo-box {
-      display: inline-flex;
+    .repo-section {
+      display: flex;
       align-items: center;
+      justify-content: center;
       gap: 0.6rem;
       background: #0d1117;
       border: 1px solid #30363d;
       border-radius: 10px;
-      padding: 0.75rem 1.5rem;
-      font-size: 1.1rem;
+      padding: 0.85rem 1.5rem;
+      margin-top: 0.5rem;
+      transition: border-color 0.2s ease;
+    }
+
+    .repo-section:hover {
+      border-color: #58a6ff;
+    }
+
+    .repo-label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #8b949e;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .repo-name {
+      font-size: 1rem;
       font-weight: 600;
       color: #58a6ff;
-      letter-spacing: 0.02em;
-      transition: border-color 0.2s, box-shadow 0.2s;
+      font-family: 'Courier New', Courier, monospace;
     }
 
-    .repo-box:hover {
-      border-color: #58a6ff;
-      box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
+    .repo-icon {
+      font-size: 1rem;
+      color: #8b949e;
     }
 
-    .repo-box svg {
-      flex-shrink: 0;
-      opacity: 0.8;
-    }
-
-    .stats-row {
+    .stats {
       display: flex;
       justify-content: center;
       gap: 2rem;
       margin-top: 2rem;
-      padding-top: 2rem;
-      border-top: 1px solid #21262d;
     }
 
-    .stat {
+    .stat-item {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -159,77 +166,21 @@
     }
 
     .stat-label {
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
+      font-size: 0.75rem;
+      color: #8b949e;
       text-transform: uppercase;
-      color: #8b949e;
+      letter-spacing: 0.06em;
     }
 
-    footer {
-      margin-top: 1rem;
+    .footer {
+      margin-top: 2.5rem;
       text-align: center;
-      font-size: 0.82rem;
+      font-size: 0.85rem;
       color: #8b949e;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.03em;
     }
 
-    footer span {
-      color: #58a6ff;
+    .footer strong {
+      color: #bc8cff;
       font-weight: 600;
     }
-
-    @media (max-width: 480px) {
-      .project-name {
-        font-size: 3rem;
-      }
-      .card {
-        padding: 2rem 1.5rem;
-      }
-    }
-  </style>
-</head>
-<body>
-
-  <div class="container">
-
-    <div class="badge">&#x2022; Active Project</div>
-
-    <div class="card">
-      <p class="project-label">Project Name</p>
-      <h1 class="project-name">aff</h1>
-
-      <div class="divider"></div>
-
-      <p class="repo-label">Repository</p>
-      <div class="repo-box">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-        </svg>
-        agsgreeg
-      </div>
-
-      <div class="stats-row">
-        <div class="stat">
-          <span class="stat-value">v1.0</span>
-          <span class="stat-label">Version</span>
-        </div>
-        <div class="stat">
-          <span class="stat-value">MIT</span>
-          <span class="stat-label">License</span>
-        </div>
-        <div class="stat">
-          <span class="stat-value">Open</span>
-          <span class="stat-label">Source</span>
-        </div>
-      </div>
-    </div>
-
-    <footer>
-      Developed by <span>Royal Bengal AI</span>
-    </footer>
-
-  </div>
-
-</body>
-</html>
